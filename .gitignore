@@ -1,0 +1,40 @@
+# Built application files
+*.apk
+*.ap_
+*.csv
+*.apredictions
+#*.gitignore
+# Files for the ART/Dalvik VM
+*.dex
+# Java class files
+*.class
+*.con
+*.sh
+*.pyc
+*.log
+# Generated files
+bin/
+gen/
+out/
+Data/
+posthoc_results/
+__pycache__/
+__pycache__/*
+__pycache__
+workspace/
+Rcode/drug-gene associations/*/*
+Rcode/CommunityEnrichment/*/*
+Rcode/RCorrelate_Similarity_Matrices/*/
+apreds/
+calculated/
+dummy/
+checkpoint/
+.ipynb_checkpoints/
+.ipynb_checkpoints/*
+.ipynb_checkpoints
+Output/
+.Rproj.user
+.Rhistory
+.Rproj
+RCode/Correlate_Similarity_Matrices/*/*
+.DS_Store
