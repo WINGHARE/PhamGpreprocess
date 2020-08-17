@@ -2,7 +2,7 @@ library(Biobase)
 library(SummarizedExperiment)
 library(S4Vectors)
 library(PharmacoGx)
-#data("CCLEsmall")
+data("CCLEsmall")
 #data("GDSCsmall")
 
 ## TODO cross check the CCLE and L1000 CTRPV2s
