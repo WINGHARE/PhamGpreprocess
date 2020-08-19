@@ -116,10 +116,12 @@ rownames(CTRPV2.auc.T)<-toupper(rownames(CTRPV2.auc.T))
 badchars <- "[\xb5]|[\n]|[,]|[;]|[:]|[-]|[+]|[*]|[%]|[$]|[#]|[{]|[}]|[[]|[]]|[|]|[\\^]|[/]|[\\]|[.]|[(]|[)]|[_]|[ ]"
 rownames(CTRPV2.auc.T)<-gsub(badchars, "", rownames(CTRPV2.auc.T))
 
-CTRPV2.auc.T[rownames(DATA.control.expression.transpose),]
+save(DATA.control.expression.transpose,file="DATA/L1000train.RData")
+
 
 DF.temp <- DATA.control.expression.transpose[,1]
 
 DATA.result <- merge(DF.temp,CTRPV2.auc.T,all.x=TRUE)
 
 
+save(DATA.result,file="DATA/L1000target.RData")
