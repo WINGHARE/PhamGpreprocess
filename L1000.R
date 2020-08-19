@@ -2,7 +2,7 @@ library(Biobase)
 library(SummarizedExperiment)
 library(S4Vectors)
 library(PharmacoGx)
-data("CCLEsmall")
+#data("CCLEsmall")
 #data("GDSCsmall")
 
 ## TODO cross check the CCLE and L1000 CTRPV2s
@@ -20,6 +20,9 @@ DATA <- get(DATA)
 
 CTRPV2<-load(file = "Data/CTRPv2.RData")
 CTRPV2<- get(CTRPV2)
+
+CCLE<-load(file = "Data/CCLE.RData")
+CCLE<- get(CCLE)
 
 
 # commonGenes <- intersect(fNames(GDSCsmall, "rna"),
@@ -77,20 +80,27 @@ DATA.samp2ID <- DATA@molecularProfiles$rna@phenoData@data[,c("distil_id","cellid
 print(head.DataTable(DATA.samp2ID))
 
 DATA.samp2ID.control <- DATA.samp2ID[DATA.samp2ID$xptype=="control",]
+DATA.control.index <- DATA.samp2ID$xptype=="control"
+print(head.DataTable(DATA.samp2ID.control))
 
 # The cell - gene matrix, values inside are expression values
-DATA.expression.transpose <- t(DATA@molecularProfiles$rna@assayData$exprs)
+DATA.control.expression.transpose <- t(DATA@molecularProfiles$rna@assayData$exprs)[DATA.control.index,]
 
 # Check if the sample name order in the expression match the order of the metadata
-print(head.DataTable(rownames(DATA.expression.transpose)== DATA.samp2ID))
-print(sum(rownames(DATA.expression.transpose)== DATA.samp2ID)==dim(DATA.expression.transpose)[1])
+print(head.DataTable(rownames(DATA.control.expression.transpose)== DATA.samp2ID.control))
+print(sum(rownames(DATA.control.expression.transpose)== DATA.samp2ID.control)==dim(DATA.control.expression.transpose)[1])
 
 # Because I know their order are the same, I just replace the rowname with cell id
 if(data.name == "GDSC"){
   rownames(DATA.expression.transpose) <- DATA.samp2ID$cellid
   print(head.DataTable(DATA.expression.transpose))
   
+}else if(data.name = "L1000_compounds"){
+  rownames(DATA.control.expression.transpose) <- DATA.samp2ID.control$cellid
+  print(head.DataTable(DATA.control.expression.transpose))
+  
 }
+
 
 
 # Todo: please check if cell id in GDSC.auc and GDSC.expression.transpose match each other 
@@ -98,6 +108,7 @@ if(data.name == "GDSC"){
 # If no, find and method to calcute string simiarities to match them
 
 
+rownames(DATA.control.expression.transpose)
 
 
 
