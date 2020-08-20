@@ -5,8 +5,8 @@ library(PharmacoGx)
 #data("CCLEsmall")
 #data("GDSCsmall")
 
-data.name = "L1000_compounds"
-data.dir = "D:/rws/CTRP/"
+data.name = "GDSC"
+data.dir = "D:/rws/DATA/Data/"
 
 data.path = paste(data.dir,data.name,".RData",sep="")
 
@@ -29,6 +29,27 @@ DATA.auc <- summarizeSensitivityProfiles(
   sensitivity.measure='auc_published',
   summary.stat="median",
   verbose=FALSE)
+
+DATA.ic50 <- summarizeSensitivityProfiles(
+  DATA,
+  sensitivity.measure='ic50_published',
+  summary.stat="median",
+  verbose=FALSE)
+
+
+DATA.auc.r<- summarizeSensitivityProfiles(
+  DATA,
+  sensitivity.measure='auc_recomputed',
+  summary.stat="median",
+  verbose=FALSE)
+
+
+DATA.ic50.r<- summarizeSensitivityProfiles(
+  DATA,
+  sensitivity.measure='ic50_recomputed',
+  summary.stat="median",
+  verbose=FALSE)
+
 
 ## Example for other datasets
 # CCLE.auc <- summarizeSensitivityProfiles(
@@ -64,7 +85,7 @@ print(dim(DATA@molecularProfiles$rna@assayData$exprs))
 
 # Extract sample name and cell id relation
 DATA.samp2ID <- DATA@molecularProfiles$rna@phenoData@data[,c("samplename","cellid")]
-print(head.DataTable(DATA))
+print(head.DataTable(DATA.samp2ID))
 
 # The cell - gene matrix, values inside are expression values
 DATA.expression.transpose <- t(DATA@molecularProfiles$rna@assayData$exprs)
@@ -81,11 +102,12 @@ if(data.name == "GDSC"){
 }
 
 
-# Todo: please check if cell id in GDSC.auc and GDSC.expression.transpose match each other 
+# Todo: please check if cell id in  and GDSC.expression.transpose match each other 
 # If yes, megrge two according to their id 
 # If no, find and method to calcute string simiarities to match them
+df.temp <- DATA.expression.transpose[,1]
 
-
+DATA.result <- merge(df.temp,t(DATA.auc),all.x=T)
 
 
 
