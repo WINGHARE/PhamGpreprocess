@@ -6,7 +6,7 @@ library(PharmacoGx)
 #data("GDSCsmall")
 
 data.name = "CCLE"
-data.dir = "D:/rws/CTRP/"
+data.dir = "D:/rws/DATA/Data/"
 
 data.path = paste(data.dir,data.name,".RData",sep="")
 
@@ -64,26 +64,38 @@ print(dim(DATA@molecularProfiles$rna@assayData$exprs))
 
 # Extract sample name and cell id relation
 DATA.samp2ID <- DATA@molecularProfiles$rna@phenoData@data[,c("samplename","cellid")]
-print(head.DataTable(DATA))
+print(head.DataTable(DATA.samp2ID))
 
 # The cell - gene matrix, values inside are expression values
 DATA.expression.transpose <- t(DATA@molecularProfiles$rna@assayData$exprs)
+DATA.samp2ID$samplename<-toupper(DATA.samp2ID$samplename)
+
 
 # Check if the sample name order in the expression match the order of the metadata
 print(head.DataTable(rownames(DATA.expression.transpose)== DATA.samp2ID))
 print(sum(rownames(DATA.expression.transpose)== DATA.samp2ID)==dim(DATA.expression.transpose)[1])
 
 # Because I know their order are the same, I just replace the rowname with cell id
-if(data.name == "GDSC"){
+if(data.name %in% c("GDSC","CCLE")){
   rownames(DATA.expression.transpose) <- DATA.samp2ID$cellid
   print(head.DataTable(DATA.expression.transpose))
   
 }
 
+DATA.auc.T<- t(DATA.auc)
+# Todo: please check if cell id in  and GDSC.expression.transpose match each other 
+# If yes, megrge two according to their id 
+# If no, find and method to calcute string simiarities to match them
+DATA.label <- DATA.auc.T[rownames(DATA.expression.transpose),]
+
 
 # Todo: please check if cell id in GDSC.auc and GDSC.expression.transpose match each other 
 # If yes, megrge two according to their id 
 # If no, find and method to calcute string simiarities to match them
+
+write.csv(DATA.expression.transpose,file = "DATA/CCLEexpression.csv")
+
+write.csv(DATA.label,file = "DATA/CCLElabel.csv")
 
 
 
