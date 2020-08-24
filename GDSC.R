@@ -101,13 +101,15 @@ if(data.name == "GDSC"){
   
 }
 
-
+DATA.auc.T<- t(DATA.auc)
 # Todo: please check if cell id in  and GDSC.expression.transpose match each other 
 # If yes, megrge two according to their id 
 # If no, find and method to calcute string simiarities to match them
 df.temp <- DATA.expression.transpose[,1]
 
-DATA.result <- merge(df.temp,t(DATA.auc),all.x=T)
+DATA.label <- DATA.auc.T[rownames(DATA.expression.transpose),]
 
 
+write.csv(DATA.label,file = "DATA/GDSClabel.csv")
+write.csv(DATA.expression.transpose,file = "DATA/GDSCexpression.csv")
 
