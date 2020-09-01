@@ -109,7 +109,14 @@ df.temp <- DATA.expression.transpose[,1]
 
 DATA.label <- DATA.auc.T[rownames(DATA.expression.transpose),]
 
+DATA.label.ic50 <- t(DATA.ic50)[rownames(DATA.expression.transpose),]
+DATA.label.aucr <- t(DATA.auc.r)[rownames(DATA.expression.transpose),]
+DATA.label.ic50r <- t(DATA.ic50.r)[rownames(DATA.expression.transpose),]
 
 write.csv(DATA.label,file = "DATA/GDSClabel.csv")
 write.csv(DATA.expression.transpose,file = "DATA/GDSCexpression.csv")
+
+write.csv(DATA.label.ic50,file = "DATA/GDSCic50.csv")
+write.csv(DATA.label.aucr,file = "DATA/GDSCaucr.csv")
+write.csv(DATA.label.ic50r,file = "DATA/GDSCic50r.csv")
 
