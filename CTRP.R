@@ -7,19 +7,19 @@ library(PharmacoGx)
 
 ## TODO cross check the CCLE and L1000 CTRPV2s
 
-data.name = "L1000_compounds"
-data.dir = "Data/"
-
-data.path = paste(data.dir,data.name,".RData",sep="")
+# data.name = "L1000_compounds"
+# data.dir = "Data/"
+# 
+# data.path = paste(data.dir,data.name,".RData",sep="")
 
 
 #load(file = "D:/rws/CTRP/CTRPv2.RData")
 #load(file = "D:/rws/CTRP/CCLE.RData")
-DATA<-load(file = data.path)
-DATA <- get(DATA)
+# DATA<-load(file = data.path)
+# DATA <- get(DATA)
 
-# CTRPV2<-load(file = "Data/CTRPv2.RData")
-# CTRPV2<- get(CTRPV2)
+CTRPV2<-load(file = "Data/CTRPv2.RData")
+CTRPV2<- get(CTRPV2)
 
 #CCLE<-load(file = "Data/CCLE.RData")
 #CCLE<- get(CCLE)
